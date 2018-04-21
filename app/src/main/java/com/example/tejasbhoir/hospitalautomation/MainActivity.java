@@ -3,6 +3,7 @@ package com.example.tejasbhoir.hospitalautomation;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
     FirebaseDatabase db = FirebaseDatabase.getInstance();
     DatabaseReference myRef = db.getReference();
     List<Staff> staffList = new ArrayList<>();
+    String id_input;
+    String pass_input;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,12 +31,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        EditText ID = findViewById(R.id.ID);
-        EditText password = findViewById(R.id.password);
+        final EditText ID = findViewById(R.id.ID);
+        final EditText password = findViewById(R.id.password);
         Button login = findViewById(R.id.login);
-
-        final String id_input = ID.getText().toString();
-        final String pass_input = password.getText().toString();
 
         checkDatabaseReference();
 
@@ -41,19 +41,28 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 int size = staffList.size();
+                id_input = ID.getText().toString();
+                pass_input = password.getText().toString();
                 for (int i = 0; i < size; i++) {
                     Staff staff = staffList.get(i);
                     String password = staff.getPassword();
                     String ID = staff.getID();
-                    if (id_input == ID) {
-                        if (pass_input == password) {
+                    Log.v("Data", ID);
+                    Log.v("Input", id_input);
+                    Log.v("OnClick", "Outside of If Loops");
+                    if (id_input.equals(ID)) {
+                        Log.v("OnClick", "First If Loop");
+                        if (pass_input.equals(password)) {
+                            Log.v("OnClick", "Second If Loop");
                             if (staff.getClass() == Doctor.class) {
                                 // Start Doctor Activity
+                                Log.v("OnClick", "Third If Loop");
                                 Intent intent = new Intent(getBaseContext(), DoctorActivity.class);
                                 startActivity(intent);
                             }
                             else {
                                 // Start Other Staff Activity
+                                Log.v("OnClick", "Third If Loop");
                                 Intent intent = new Intent(getBaseContext(), OtherStaffActivity.class);
                                 startActivity(intent);
                             }
