@@ -60,9 +60,13 @@ public class MainActivity extends AppCompatActivity {
                                 Intent intent = new Intent(getBaseContext(), DoctorActivity.class);
                                 startActivity(intent);
                             }
-                            else {
+                            else if (staff.getClass() == Admin.class){
                                 // Start Other Staff Activity
                                 Log.v("OnClick", "Third If Loop");
+                                Intent intent = new Intent(getBaseContext(), AdminActivity.class);
+                                startActivity(intent);
+                            }
+                            else {
                                 Intent intent = new Intent(getBaseContext(), OtherStaffActivity.class);
                                 startActivity(intent);
                             }
@@ -106,6 +110,22 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.hasChild("staff")){
+                    if(dataSnapshot.child("staff").hasChild("admin")){
+                        getAdminList();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
         public void getDoctorList() {
@@ -139,5 +159,21 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
+
+    public void getAdminList() {
+        myRef.child("staff").child("admin").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    staffList.add(postSnapshot.getValue(Staff.class));
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
 }
 
