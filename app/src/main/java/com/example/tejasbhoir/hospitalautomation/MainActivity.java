@@ -1,5 +1,6 @@
 package com.example.tejasbhoir.hospitalautomation;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -45,13 +46,17 @@ public class MainActivity extends AppCompatActivity {
                     Staff staff = staffList.get(i);
                     String password = staff.getPassword();
                     String ID = staff.getID();
-                    if (id_input == ID) {
-                        if (pass_input == password) {
+                    if (id_input.equals(ID)) {
+                        if (pass_input.equals(password)) {
                             if (staff.getClass() == Doctor.class) {
                                 // Start Doctor Activity
+                                Intent intent = new Intent(getBaseContext(), DoctorActivity.class);
+                                startActivity(intent);
                             }
                             else {
                                 // Start Other Staff Activity
+                                Intent intent = new Intent(getBaseContext(), OtherStaffActivity.class);
+                                startActivity(intent);
                             }
                         }
                     }
