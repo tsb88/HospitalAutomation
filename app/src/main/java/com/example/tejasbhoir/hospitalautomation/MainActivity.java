@@ -1,11 +1,11 @@
 package com.example.tejasbhoir.hospitalautomation;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -49,9 +49,13 @@ public class MainActivity extends AppCompatActivity {
                         if (pass_input == password) {
                             if (staff.getClass() == Doctor.class) {
                                 // Start Doctor Activity
+                                Intent intent = new Intent(getBaseContext(), DoctorActivity.class);
+                                startActivity(intent);
                             }
                             else {
                                 // Start Other Staff Activity
+                                Intent intent = new Intent(getBaseContext(), OtherStaffActivity.class);
+                                startActivity(intent);
                             }
                         }
                     }
