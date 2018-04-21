@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "786527759582-vqc272h0n1secm6llllq5mnkqe0hqnsp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tejasbhoir.hospitalautomation",
+            "certificate_hash": "f46a1ff516c0e11c32896c7cc4d62b8c25b4219e"
+          }
+        },
+        {
           "client_id": "786527759582-ur63e0ie9mpd0idujmjm8re9k7pc078f.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
