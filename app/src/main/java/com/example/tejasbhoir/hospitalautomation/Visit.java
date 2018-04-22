@@ -8,29 +8,24 @@ public class Visit implements Comparable<Visit> {
     private int mID;
     private int mPatientID;
     private int mDuration;
-    private Patient mPatient;
-    private Doctor mDoctor;
+    private int mDoctorID;
     private boolean mIsWaiting;
 
     public Visit() {
-        mPatient= null;
-        mDoctor= null;
         mIsWaiting= true;
+        mDoctorID = -1;
     }
 
     // Getters
-    public Patient getmPatient() {return mPatient;}
-    public Doctor getmDoctor() { return mDoctor; }
+
     public boolean getmIsWaiting() {return mIsWaiting;}
     public int getmPriority() {return mPriority;}
     public int getmID() {return mID;}
     public int getmDuration() {return mDuration;}
     public int getmPatientID() {return mPatientID;}
+    public int getmDoctorID(){return  mDoctorID;}
 
     // Setters
-    public void setPatient(Patient patient) {
-        this.mPatient = patient;
-    }
 
     public int compareTo(Visit o) {
         if(o != null) {
@@ -55,10 +50,12 @@ public class Visit implements Comparable<Visit> {
 
         String ret = "";
         try {
-            ret = mPatient.getmName();
+            ret = "" + mPatientID;
+            ret+= " P: " + mPriority;
+            ret+= " D: " + mDuration;
         } catch(NullPointerException e) {
             Log.e("Visit","Null Pointer to Patient");
-            ret = "Null Pointer Found";
+            ret = "Patient object not assigned to this Visit object";
         }
 
         return ret;
