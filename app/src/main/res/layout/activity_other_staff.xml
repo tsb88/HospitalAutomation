@@ -6,4 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".OtherStaffActivity">
 
+    <Button
+        android:id="@+id/button_addpatient"
+        style="@android:style/Widget.Material.Light.Button"
+        android:layout_width="125dp"
+        android:layout_height="78dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Add Patient to Database"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>
