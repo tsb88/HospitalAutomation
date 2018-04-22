@@ -36,7 +36,7 @@ public class AdminActivity extends AppCompatActivity {
         nextVisit = new ArrayList<Visit>();
         patients = new ArrayList<Patient>();
         getPatientList();
-        //getVisitList();
+        getVisitList();
 
     }
 
@@ -88,7 +88,7 @@ public class AdminActivity extends AppCompatActivity {
         boolean foundPatient;
         for(Visit next: nextVisit) {
             foundPatient = false;
-            int id = next.getId();
+            int id = next.getmPatientID();
             for(Patient patient:patients) {
                 if(id == patient.getmID()) {
                     next.setPatient(patient);
@@ -101,7 +101,7 @@ public class AdminActivity extends AppCompatActivity {
             }
             pq.insert(next);
         }
-        myRef.child("visit").setValue(null);
+        //myRef.child("visit").setValue(null);
         nextVisit.clear();
         Log.v("AdminActivity","priority Queue string next");
         Log.v("AdminActivity",pq.toString());

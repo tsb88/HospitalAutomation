@@ -4,33 +4,41 @@ import android.util.Log;
 
 public class Visit implements Comparable<Visit> {
 
-    private Patient patient;
-    private Doctor doctor;
-    private boolean isWaiting;
-    private int priority;
-    private int id;
+    private int mPriority;
+    private int mID;
+    private int mPatientID;
+    private int mDuration;
+    private Patient mPatient;
+    private Doctor mDoctor;
+    private boolean mIsWaiting;
 
-    public Visit() {}
+    public Visit() {
+        mPatient= null;
+        mDoctor= null;
+        mIsWaiting= true;
+    }
 
     // Getters
-    public Patient getPatient() {return patient;}
-    public Doctor getDoctor() { return doctor; }
-    public boolean getIsWaiting() {return isWaiting;}
-    public int getStartPriority() {return priority;}
-    public int getId() {return id;}
+    public Patient getmPatient() {return mPatient;}
+    public Doctor getmDoctor() { return mDoctor; }
+    public boolean getmIsWaiting() {return mIsWaiting;}
+    public int getmPriority() {return mPriority;}
+    public int getmID() {return mID;}
+    public int getmDuration() {return mDuration;}
+    public int getmPatientID() {return mPatientID;}
 
     // Setters
     public void setPatient(Patient patient) {
-        this.patient = patient;
+        this.mPatient = patient;
     }
 
     public int compareTo(Visit o) {
         if(o != null) {
             Visit other = (Visit) o;
 
-            if(this.priority> other.priority)
+            if(mPriority> other.getmPriority())
                 return 1;
-            if(this.priority<other.priority)
+            if(mPriority<other.getmPriority())
                 return -1;
             return 0;
 
@@ -44,6 +52,15 @@ public class Visit implements Comparable<Visit> {
     }
 
     public String toString() {
-        return patient.getmName();
+
+        String ret = "";
+        try {
+            ret = mPatient.getmName();
+        } catch(NullPointerException e) {
+            Log.e("Visit","Null Pointer to Patient");
+            ret = "Null Pointer Found";
+        }
+
+        return ret;
     }
 }
