@@ -1,27 +1,20 @@
 package com.example.tejasbhoir.hospitalautomation;
 
 public class Patient {
-    private String mName;
+    private int mID;
     private int mAge;
     private String mGender;
-    private String mID;
+    private String mName;
 
-    Patient(String name, int age, String gender, String ID){
-        mName = name;
-        mAge = age;
-        mGender = gender;
-        mID = ID;
-    }
-
-    Patient() {
-
-    }
+    Patient() {}
 
     public String getmName() {return mName;}
-
     public int getmAge() {return mAge;}
-
     public String getmGender() {return mGender;}
+    public int getmID() {return mID;}
 
-    public String getmID() {return mID;}
+    public void setmName(String mName) {this.mName = mName;}
+    public void setmID(int mID) { this.mID = mID; }
+    public void setmGender(String mGender) {this.mGender = mGender;}
+    public void setmAge(int mAge) {this.mAge = mAge;}
 }
