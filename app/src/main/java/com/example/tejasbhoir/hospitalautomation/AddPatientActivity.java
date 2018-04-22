@@ -19,7 +19,7 @@ public class AddPatientActivity extends AppCompatActivity {
     String patientName;
     int patientAge;
     String patientGender;
-    String patientID;
+    int patientID;
 
     String genders[] = {"m","f"};
     Patient inputPatient;
@@ -43,13 +43,17 @@ public class AddPatientActivity extends AppCompatActivity {
             public void onClick(View v) {
                 patientName = inputName.getText().toString();
                 patientAge = Integer.parseInt(inputAge.getText().toString());
-                patientID = Integer.toString(randomID());
+                patientID = randomID();
 
-                inputPatient = new Patient(patientName,patientAge, patientGender, patientID);
+                inputPatient = new Patient();
+                inputPatient.setmName(patientName);
+                inputPatient.setmAge(patientAge);
+                inputPatient.setmGender(patientGender);
+                inputPatient.setmID(patientID);
 
 
                 myRef = myRef.child("patients");
-                myRef.child(patientID).setValue(inputPatient);
+                myRef.child(""+patientID).setValue(inputPatient);
 
             }
         });
