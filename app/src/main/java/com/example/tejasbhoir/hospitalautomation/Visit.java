@@ -1,24 +1,28 @@
 package com.example.tejasbhoir.hospitalautomation;
 
+import android.util.Log;
+
 public class Visit implements Comparable<Visit> {
 
     private Patient patient;
     private Doctor doctor;
     private boolean isWaiting;
     private int priority;
+    private int id;
 
-    public Visit(Patient patient, int startPriority) {
-        this.patient = patient;
-        this.doctor = doctor;
-        isWaiting = true;
-        priority = startPriority;
-    }
+    public Visit() {}
 
     // Getters
     public Patient getPatient() {return patient;}
     public Doctor getDoctor() { return doctor; }
     public boolean getIsWaiting() {return isWaiting;}
     public int getStartPriority() {return priority;}
+    public int getId() {return id;}
+
+    // Setters
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
 
     public int compareTo(Visit o) {
         if(o != null) {
@@ -39,4 +43,7 @@ public class Visit implements Comparable<Visit> {
         return -1;
     }
 
+    public String toString() {
+        return patient.getmName();
+    }
 }

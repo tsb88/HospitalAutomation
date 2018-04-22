@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     FirebaseDatabase db = FirebaseDatabase.getInstance();
     DatabaseReference myRef = db.getReference();
     List<Staff> staffList = new ArrayList<>();
-    String id_input;
+    int id_input;
     String pass_input;
     boolean notFound;
 
@@ -45,16 +45,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 int size = staffList.size();
-                id_input = ID.getText().toString();
+                id_input = Integer.parseInt(ID.getText().toString());
                 pass_input = password.getText().toString();
                 for (int i = 0; i < size; i++) {
                     Staff staff = staffList.get(i);
-                    String password = staff.getPassword();
-                    String ID = staff.getID();
-                    Log.v("Data", ID);
-                    Log.v("Input", id_input);
+                    String password = staff.getmPassword();
+                    int ID = staff.getmID();
+                    Log.v("Data", ""+ID);
+                    Log.v("Input", ""+id_input);
                     Log.v("OnClick", "Outside of If Loops");
-                    if (id_input.equals(ID)) {
+                    if (id_input == ID) {
                         Log.v("OnClick", "First If Loop");
                         if (pass_input.equals(password)) {
                             Log.v("OnClick", "Second If Loop");
@@ -62,11 +62,10 @@ public class MainActivity extends AppCompatActivity {
                                 // Start Doctor Activity
                                 Log.v("OnClick", "Third If Loop");
                                 Intent intent = new Intent(getBaseContext(), DoctorActivity.class);
-                                intent.putExtra("ID", staff.getID());
                                 startActivity(intent);
                             }
                             else if (staff.getClass() == Admin.class){
-                                // Start Admin Activity
+                                // Start Other Staff Activity
                                 Log.v("OnClick", "Third If Loop");
                                 Intent intent = new Intent(getBaseContext(), AdminActivity.class);
                                 startActivity(intent);
@@ -145,6 +144,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                         staffList.add(postSnapshot.getValue(Doctor.class));
+                        Log.v("MainActivity","Doctor Name: " + staffList.get(staffList.size()-1).getmName());
                     }
                 }
 
@@ -161,6 +161,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                         staffList.add(postSnapshot.getValue(Staff.class));
+                        Log.v("MainActivity","Other Staff Name: " + staffList.get(staffList.size()-1).getmName());
                     }
                 }
 
@@ -177,6 +178,7 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     staffList.add(postSnapshot.getValue(Admin.class));
+                    Log.v("MainActivity","Admin Name: " + staffList.get(staffList.size()-1).getmName());
                 }
             }
 
