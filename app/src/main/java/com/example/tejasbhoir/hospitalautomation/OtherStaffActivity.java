@@ -21,5 +21,14 @@ public class OtherStaffActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        Button buttonAddVisit = findViewById(R.id.button_addvisit);
+        buttonAddVisit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), AddVisitActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

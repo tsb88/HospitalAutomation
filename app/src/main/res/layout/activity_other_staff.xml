@@ -14,6 +14,19 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="Add Patient to Database"
+        android:backgroundTint="#E91E63"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button_addvisit"
+        style="@android:style/Widget.Material.Light.Button"
+        android:layout_width="155dp"
+        android:layout_height="99dp"
+        android:layout_marginStart="212dp"
+        android:layout_marginTop="16dp"
+        android:text="Add Visit"
+        android:backgroundTint="#E91E63"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>
