@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     List<Staff> staffList = new ArrayList<>();
     String id_input;
     String pass_input;
+    boolean notFound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
         final EditText ID = findViewById(R.id.ID);
         final EditText password = findViewById(R.id.password);
         Button login = findViewById(R.id.login);
+
+        notFound = false;
 
         checkDatabaseReference();
 
@@ -72,9 +76,15 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                     }
+                    else
+                        notFound = true;
                 }
             }
         });
+
+        if (notFound){
+            Toast.makeText(getApplicationContext(), "Try Again", Toast.LENGTH_LONG).show();
+        }
 
     }
 
