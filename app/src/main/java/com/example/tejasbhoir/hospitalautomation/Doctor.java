@@ -9,13 +9,14 @@ import com.example.tejasbhoir.hospitalautomation.EmergencyRoom;
 import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Doctor extends Staff implements Serializable{
 
     //private boolean isAvailable;
     //private EmergencyRoom emergencyRoom;
-    private List<Integer> mPatients;
+    private HashMap<String, Integer> mPatients;
 
     Doctor() {
        // isAvailable = true;
@@ -26,7 +27,7 @@ public class Doctor extends Staff implements Serializable{
    // public boolean getIsAvailable() {return isAvailable;}
   //  public EmergencyRoom getEmergencyRoom() {return emergencyRoom;}
 
-    public List<Integer> getmPatients() {
+    public HashMap<String,Integer> getmPatients() {
         return mPatients;
     }
 

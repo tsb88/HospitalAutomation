@@ -3,6 +3,7 @@ package com.example.tejasbhoir.hospitalautomation;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -17,19 +18,20 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class DoctorActivity extends AppCompatActivity {
 
     ListView patientList;
     TextView recentMessage;
+    Doctor doctor;
 
     FirebaseDatabase db = FirebaseDatabase.getInstance();
     DatabaseReference myRef = db.getReference();
 
     int id;
     String recentDBMessage;
-    Doctor doctor;
 
 
     @Override
@@ -39,7 +41,7 @@ public class DoctorActivity extends AppCompatActivity {
 
         Toast.makeText(getApplicationContext(), "This is working (Doctor Page)", Toast.LENGTH_LONG).show();
 
-        Intent intent = new Intent();
+        Intent intent = this.getIntent();
         id = intent.getIntExtra("ID",0);
 
         patientList = findViewById(R.id.patientList);
@@ -51,15 +53,17 @@ public class DoctorActivity extends AppCompatActivity {
 
         getDoctor();
 
-        List<Integer> dbPatientList = doctor.getmPatients();
+       // Log.v("Doctor", doctor.getmName());
 
-        ArrayAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, dbPatientList);
+        /*List<Integer> dbPatientListView;
+
+        ArrayAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, dbPatientListView);
         patientList.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+        adapter.notifyDataSetChanged();*/
 
     }
 
-    Query lastQuery = myRef.child("messages").child("doctors").child(""+id).orderByKey().limitToLast(1);
+    Query lastQuery = myRef.child("messages").child("doctors").child(Integer.toString(id)).orderByKey().limitToLast(1);
     public void checkDatabaseReference() {
         lastQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
