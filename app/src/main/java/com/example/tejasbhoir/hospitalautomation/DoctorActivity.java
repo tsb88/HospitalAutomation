@@ -29,7 +29,7 @@ public class DoctorActivity extends AppCompatActivity {
     DatabaseReference myRef = db.getReference();
 
     Doctor current = new Doctor();
-    String id = current.getID();
+    int id = current.getmID();
     String recentDBMessage;
 
 
@@ -53,13 +53,13 @@ public class DoctorActivity extends AppCompatActivity {
 
     }
 
-    Query lastQuery = myRef.child("messages").child("doctors").child("ID").child(id).orderByKey().limitToLast(1);
+    Query lastQuery = myRef.child("messages").child("doctors").child("ID").child(""+id).orderByKey().limitToLast(1);
     public void checkDatabaseReference() {
         lastQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.hasChild("messages")) {
-                    if (dataSnapshot.child("messages").child("doctors").child("ID").hasChild(id)) {
+                    if (dataSnapshot.child("messages").child("doctors").child("ID").hasChild(""+id)) {
                         recentDBMessage = dataSnapshot.child("message").getValue().toString();
                     }
                 }

@@ -19,6 +19,7 @@ public class AdminActivity extends AppCompatActivity {
 
     Heap<Visit> pq;
     List<Visit> nextVisit;
+    List<Patient> patients;
 
     FirebaseDatabase db = FirebaseDatabase.getInstance();
     DatabaseReference myRef = db.getReference();
@@ -29,8 +30,13 @@ public class AdminActivity extends AppCompatActivity {
         setContentView(R.layout.activity_admin);
 
         Toast.makeText(getBaseContext(),"This is working (Admin page)",Toast.LENGTH_LONG).show();
-        nextVisit = new ArrayList<>();
-        getVisitList();
+        Log.v("Visit","ADMIN ACTIVITY OPENED");
+
+        pq = new Heap<Visit>();
+        nextVisit = new ArrayList<Visit>();
+        patients = new ArrayList<Patient>();
+        getPatientList();
+        //getVisitList();
 
     }
 
@@ -45,7 +51,6 @@ public class AdminActivity extends AppCompatActivity {
                 // Enqueue all of these
                 Log.v("Visit","Visit change detected");
                 enqueue();
-
             }
 
             @Override
@@ -55,13 +60,51 @@ public class AdminActivity extends AppCompatActivity {
         });
     }
 
+    public void getPatientList() {
+        myRef.child("patients").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                patients.clear();
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    patients.add(postSnapshot.getValue(Patient.class));
+                    Log.v("AdminActivity","A patient was found");
+                    Log.v("AdminActivity","Patient name: " + patients.get(patients.size()-1).getmName());
+                }
+                // New visits were added to the nextVisit list
+                // Enqueue all of these
+                Log.v("AdminActivity","Patient Set updated");
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+
     private void enqueue() {
+
+        boolean foundPatient;
         for(Visit next: nextVisit) {
+            foundPatient = false;
+            int id = next.getId();
+            for(Patient patient:patients) {
+                if(id == patient.getmID()) {
+                    next.setPatient(patient);
+                    foundPatient = true;
+                    break;
+                }
+            }
+            if(!foundPatient) {
+                Log.e("Admin", "Patient associated with visit not found");
+            }
             pq.insert(next);
         }
         myRef.child("visit").setValue(null);
         nextVisit.clear();
-        Log.v("Visit",pq.toString());
+        Log.v("AdminActivity","priority Queue string next");
+        Log.v("AdminActivity",pq.toString());
     }
 
 }
