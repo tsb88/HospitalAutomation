@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
                                 // Start Doctor Activity
                                 Log.v("OnClick", "Third If Loop");
                                 Intent intent = new Intent(getBaseContext(), DoctorActivity.class);
+                                intent.putExtra("ID", id_input);
                                 startActivity(intent);
                             }
                             else if (staff.getClass() == Admin.class){

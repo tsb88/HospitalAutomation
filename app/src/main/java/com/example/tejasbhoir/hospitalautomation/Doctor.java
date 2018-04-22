@@ -1,12 +1,21 @@
 package com.example.tejasbhoir.hospitalautomation;
 
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
 import com.example.tejasbhoir.hospitalautomation.Staff;
 import com.example.tejasbhoir.hospitalautomation.EmergencyRoom;
 
-public class Doctor extends Staff{
+import java.io.Serializable;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Doctor extends Staff implements Serializable{
 
     //private boolean isAvailable;
     //private EmergencyRoom emergencyRoom;
+    private List<Integer> mPatients;
 
     Doctor() {
        // isAvailable = true;
@@ -16,4 +25,9 @@ public class Doctor extends Staff{
     // Getters
    // public boolean getIsAvailable() {return isAvailable;}
   //  public EmergencyRoom getEmergencyRoom() {return emergencyRoom;}
+
+    public List<Integer> getmPatients() {
+        return mPatients;
+    }
+
 }
