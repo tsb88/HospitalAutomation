@@ -14,10 +14,7 @@ public class Patient {
     }
 
     Patient() {
-        mName = "";
-        mAge = 0;
-        mGender = "";
-        mID = "";
+
     }
 
     public String getmName() {return mName;}
