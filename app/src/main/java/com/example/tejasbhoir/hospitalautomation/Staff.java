@@ -8,18 +8,6 @@ public class Staff {
     private String lastName;
 
     Staff() {
-        ID = "-1";
-        password = "-1";
-        firstName = "-1";
-        lastName = "-1";
-    }
-
-    Staff(String ID, String password, String firstName, String lastName) {
-
-        this.ID = ID;
-        this.password = password;
-        this.firstName= firstName;
-        this.lastName = lastName;
     }
 
     // Getters

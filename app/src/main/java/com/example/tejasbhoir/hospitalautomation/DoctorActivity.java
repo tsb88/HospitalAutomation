@@ -1,7 +1,10 @@
 package com.example.tejasbhoir.hospitalautomation;
 
+import android.content.Intent;
+import android.graphics.Paint;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -28,9 +31,9 @@ public class DoctorActivity extends AppCompatActivity {
     FirebaseDatabase db = FirebaseDatabase.getInstance();
     DatabaseReference myRef = db.getReference();
 
-    Doctor current = new Doctor();
-    String id = current.getID();
+    Intent intent;
     String recentDBMessage;
+    String id_passed;
 
 
     @Override
@@ -43,6 +46,8 @@ public class DoctorActivity extends AppCompatActivity {
         patientList = findViewById(R.id.patientList);
         recentMessage = findViewById(R.id.recentMessage);
 
+        id_passed = intent.getStringExtra("ID");
+
         checkDatabaseReference();
 
         recentMessage.setText(recentDBMessage);
@@ -53,13 +58,13 @@ public class DoctorActivity extends AppCompatActivity {
 
     }
 
-    Query lastQuery = myRef.child("messages").child("doctors").child("ID").child(id).orderByKey().limitToLast(1);
+    Query lastQuery = myRef.child("messages").child("doctors").child("ID").child(id_passed).orderByKey().limitToLast(1);
     public void checkDatabaseReference() {
         lastQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.hasChild("messages")) {
-                    if (dataSnapshot.child("messages").child("doctors").child("ID").hasChild(id)) {
+                    if (dataSnapshot.child("messages").child("doctors").child("ID").hasChild(id_passed)) {
                         recentDBMessage = dataSnapshot.child("message").getValue().toString();
                     }
                 }
@@ -71,15 +76,11 @@ public class DoctorActivity extends AppCompatActivity {
             }
         });
 
-        Query query = myRef.child("staff").child("doctors").orderByChild("ID").startAt(id);
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.hasChild("staff")) {
-                    if (dataSnapshot.child("staff").child("doctors").hasChildren()) {
-                        getPatientList();
-                    }
-                }
+                Log.v("Listener", "Data Listener Called");
+                getPatientList();
             }
 
             @Override
@@ -90,11 +91,13 @@ public class DoctorActivity extends AppCompatActivity {
     }
 
     public void getPatientList() {
-        myRef.child("staff").child("doctors").orderByChild("ID").startAt(id).addListenerForSingleValueEvent(new ValueEventListener() {
+        myRef.child("staff").child("doctors").child(id_passed).child("patients").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     dbPatientList.add(postSnapshot.getValue(Patient.class));
+                    Patient patient = postSnapshot.getValue(Patient.class);
+                    Log.v("PatientList", patient.getmName());
                 }
             }
 

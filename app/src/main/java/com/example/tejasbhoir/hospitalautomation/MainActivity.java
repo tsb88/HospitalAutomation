@@ -62,10 +62,11 @@ public class MainActivity extends AppCompatActivity {
                                 // Start Doctor Activity
                                 Log.v("OnClick", "Third If Loop");
                                 Intent intent = new Intent(getBaseContext(), DoctorActivity.class);
+                                intent.putExtra("ID", staff.getID());
                                 startActivity(intent);
                             }
                             else if (staff.getClass() == Admin.class){
-                                // Start Other Staff Activity
+                                // Start Admin Activity
                                 Log.v("OnClick", "Third If Loop");
                                 Intent intent = new Intent(getBaseContext(), AdminActivity.class);
                                 startActivity(intent);
@@ -143,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                        staffList.add(postSnapshot.getValue(Staff.class));
+                        staffList.add(postSnapshot.getValue(Doctor.class));
                     }
                 }
 
@@ -175,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    staffList.add(postSnapshot.getValue(Staff.class));
+                    staffList.add(postSnapshot.getValue(Admin.class));
                 }
             }
 
