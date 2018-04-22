@@ -2,9 +2,9 @@ package com.example.tejasbhoir.hospitalautomation;
 
 public class Staff {
 
-    private int mID;
-    private String mPassword;
-    private String mName;
+    protected int mID;
+    protected String mPassword;
+    protected String mName;
 
     Staff() { }
 

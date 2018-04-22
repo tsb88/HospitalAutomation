@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
     FirebaseDatabase db = FirebaseDatabase.getInstance();
     DatabaseReference myRef = db.getReference();
-    List<Staff> staffList = new ArrayList<>();
+    List<Staff> staffList = new ArrayList<Staff>();
     int id_input;
     String pass_input;
     boolean notFound;
@@ -61,8 +61,9 @@ public class MainActivity extends AppCompatActivity {
                             if (staff.getClass() == Doctor.class) {
                                 // Start Doctor Activity
                                 Log.v("OnClick", "Third If Loop");
-                                Intent intent = new Intent(getBaseContext(), DoctorActivity.class);
-                                intent.putExtra("ID", id_input);
+                                Log.v("MainActivity","These are both IDs" + id_input+ " " + ID);
+                                Intent intent = new Intent(getApplicationContext(), DoctorActivity.class);
+                                intent.putExtra("ID", ID);
                                 startActivity(intent);
                             }
                             else if (staff.getClass() == Admin.class){
@@ -146,6 +147,8 @@ public class MainActivity extends AppCompatActivity {
                     for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                         staffList.add(postSnapshot.getValue(Doctor.class));
                         Log.v("MainActivity","Doctor Name: " + staffList.get(staffList.size()-1).getmName());
+                        Doctor currentDoc = (Doctor) staffList.get(staffList.size()-1);
+
                     }
                 }
 
@@ -189,5 +192,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 }
 
